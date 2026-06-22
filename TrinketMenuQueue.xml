@@ -370,7 +370,7 @@
 							</Anchors>
 							<TexCoords left="0.09375" right="0.90625" top="0" bottom="1.0"/>
 						</Texture>
-						<FontString font="GameFontHighlightSmall" justifyH="RIGHT" text="Delay">
+						<FontString name="TrinketMenu_SortDelayLabel" font="GameFontHighlightSmall" justifyH="RIGHT" text="Delay">
 							<Anchors>
 								<Anchor point="RIGHT" relativePoint="LEFT">
 									<Offset>
@@ -379,7 +379,7 @@
 								</Anchor>
 							</Anchors>
 						</FontString>
-						<FontString font="GameFontHighlightSmall" justifyH="LEFT" text="sec">
+						<FontString name="TrinketMenu_SortDelaySecLabel" font="GameFontHighlightSmall" justifyH="LEFT" text="sec">
 							<Anchors>
 								<Anchor point="LEFT" relativePoint="RIGHT">
 									<Offset>
@@ -657,7 +657,7 @@
 									</Anchors>
 									<TexCoords left="0.09375" right="0.90625" top="0" bottom="1.0"/>
 								</Texture>
-								<FontString font="GameFontHighlightSmall" text="Profile">
+								<FontString name="TrinketMenu_ProfileNameLabel" font="GameFontHighlightSmall" text="Profile">
 									<Anchors>
 										<Anchor point="RIGHT" relativeTo="$parentLeft" relativePoint="LEFT">
 											<Offset>

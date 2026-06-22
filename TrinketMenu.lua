@@ -1,6 +1,7 @@
 
 --[[ TrinketMenu 3.41 ]]--
-TrinketMenu = {}
+TrinketMenu = TrinketMenu or {}
+TrinketMenu.L = TrinketMenu.L or {}
 
 function TrinketMenu.LoadDefaults()
 
@@ -427,33 +428,33 @@ function TrinketMenu.SlashHandler(msg)
 			TrinketMenu.ScaleFrame(mainscale)
 		end
 		if not tonumber(menuscale) and not tonumber(mainscale) then
-			DEFAULT_CHAT_FRAME:AddMessage("|cFFFFFF00TrinketMenu scale:")
-			DEFAULT_CHAT_FRAME:AddMessage("/trinket scale main (number) : set exact main scale")
-			DEFAULT_CHAT_FRAME:AddMessage("/trinket scale menu (number) : set exact menu scale")
-			DEFAULT_CHAT_FRAME:AddMessage("ie, /trinket scale menu 0.85")
-			DEFAULT_CHAT_FRAME:AddMessage("Note: You can drag the lower-right corner of either window to scale.  This slash command is for those who want to set an exact scale.")
+			DEFAULT_CHAT_FRAME:AddMessage(TrinketMenu.L["ScaleHeader"])
+			DEFAULT_CHAT_FRAME:AddMessage(TrinketMenu.L["ScaleMainHelp"])
+			DEFAULT_CHAT_FRAME:AddMessage(TrinketMenu.L["ScaleMenuHelp"])
+			DEFAULT_CHAT_FRAME:AddMessage(TrinketMenu.L["ScaleExample"])
+			DEFAULT_CHAT_FRAME:AddMessage(TrinketMenu.L["ScaleNote"])
 		end
 		TrinketMenu.FrameToScale = nil
 		TrinketMenuPerOptions.MainScale = TrinketMenu_MainFrame:GetScale()
 		TrinketMenuPerOptions.MenuScale = TrinketMenu_MenuFrame:GetScale()
 	elseif string.find(msg,"load") then
-		DEFAULT_CHAT_FRAME:AddMessage("|cFFFFFF00TrinketMenu load:")
-		DEFAULT_CHAT_FRAME:AddMessage("/trinket load (top|bottom) profilename\nie: /trinket load bottom PvP")
+		DEFAULT_CHAT_FRAME:AddMessage(TrinketMenu.L["LoadHeader"])
+		DEFAULT_CHAT_FRAME:AddMessage(TrinketMenu.L["LoadHelp"])
 	else
-		DEFAULT_CHAT_FRAME:AddMessage("|cFFFFFF00TrinketMenu useage:")
-		DEFAULT_CHAT_FRAME:AddMessage("/trinket or /trinketmenu : toggle the window")
-		DEFAULT_CHAT_FRAME:AddMessage("/trinket reset : reset all settings")
-		DEFAULT_CHAT_FRAME:AddMessage("/trinket opt : summon options window")
-		DEFAULT_CHAT_FRAME:AddMessage("/trinket lock|unlock : toggles window lock")
-		DEFAULT_CHAT_FRAME:AddMessage("/trinket scale main|menu (number) : sets an exact scale")
-		DEFAULT_CHAT_FRAME:AddMessage("/trinket load top|bottom profilename : loads a profile to top or bottom trinket")
+		DEFAULT_CHAT_FRAME:AddMessage(TrinketMenu.L["UsageHeader"])
+		DEFAULT_CHAT_FRAME:AddMessage(TrinketMenu.L["UsageToggle"])
+		DEFAULT_CHAT_FRAME:AddMessage(TrinketMenu.L["UsageReset"])
+		DEFAULT_CHAT_FRAME:AddMessage(TrinketMenu.L["UsageOpt"])
+		DEFAULT_CHAT_FRAME:AddMessage(TrinketMenu.L["UsageLock"])
+		DEFAULT_CHAT_FRAME:AddMessage(TrinketMenu.L["UsageScale"])
+		DEFAULT_CHAT_FRAME:AddMessage(TrinketMenu.L["UsageLoad"])
 	end
 end
 
 function TrinketMenu.ResetSettings()
 	StaticPopupDialogs["TRINKETMENURESET"] = {
-		text = "Are you sure you want to reset TrinketMenu to default state and reload the UI?",
-		button1 = "Yes", button2 = "No", showAlert=1, timeout = 0, whileDead = 1,
+		text = TrinketMenu.L["ResetConfirm"],
+		button1 = TrinketMenu.L["Yes"], button2 = TrinketMenu.L["No"], showAlert=1, timeout = 0, whileDead = 1,
 		OnAccept = function() TrinketMenuOptions=nil TrinketMenuPerOptions=nil TrinketMenuQueue=nil ReloadUI() end,
 	}
 	StaticPopup_Show("TRINKETMENURESET")
@@ -836,7 +837,7 @@ function TrinketMenu.TooltipUpdate()
 		end
 		TrinketMenu.ShrinkTooltip(TrinketMenu.TooltipOwner) -- if TinyTooltips on, shrink it
 		if TrinketMenu.TooltipType=="INVENTORY" and TrinketMenu.TooltipBag then
-			GameTooltip:AddLine("Queued: "..TrinketMenu.TooltipBag)
+			GameTooltip:AddLine(TrinketMenu.L["Queued"]..TrinketMenu.TooltipBag)
 		end
 		GameTooltip:Show()
 		if cooldown==0 then
@@ -1024,12 +1025,12 @@ function TrinketMenu.CooldownUpdate()
 			end
 			if TrinketMenuPerOptions.ItemsUsed[i]==30 and start>0 and remain<30 then
 				if TrinketMenuOptions.NotifyThirty=="ON" then
-					TrinketMenu.Notify(i.." ready soon!")
+					TrinketMenu.Notify(string.format(TrinketMenu.L["ReadySoon"],i))
 				end
 				TrinketMenuPerOptions.ItemsUsed[i]=5 -- tag for just 0 notify now
 			elseif TrinketMenuPerOptions.ItemsUsed[i]==5 and start==0 then
 				if TrinketMenuOptions.Notify=="ON" then
-					TrinketMenu.Notify(i.." ready!")
+					TrinketMenu.Notify(string.format(TrinketMenu.L["Ready"],i))
 				end
 			end
 			if start==0 then

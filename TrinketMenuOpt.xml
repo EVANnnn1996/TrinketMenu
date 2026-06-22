@@ -66,7 +66,7 @@
 				this:RegisterForDrag("LeftButton")
 			</OnLoad>
 			<OnEnter>
-				TrinketMenu.OnTooltip("TrinketMenu",(TrinketMenuOptions.DisableToggle=="ON") and "Click: toggle options\nDrag: move icon" or "Left click: toggle trinkets\nRight click: toggle options\nDrag: move icon")
+				TrinketMenu.OnTooltip("TrinketMenu",(TrinketMenuOptions.DisableToggle=="ON") and TrinketMenu.L["MinimapTooltipDisabled"] or TrinketMenu.L["MinimapTooltip"])
 			</OnEnter>
 			<OnLeave>
 				GameTooltip:Hide()

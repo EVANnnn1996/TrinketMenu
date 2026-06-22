@@ -1,42 +1,44 @@
 --[[ TrinketMenuOpt.lua : Options and sort window for TrinketMenu ]]
 
+local L = TrinketMenu.L
+
 TrinketMenu.CheckOptInfo = {
-{"ShowIcon","ON","Minimap Button","Show or hide minimap button."},
-{"SquareMinimap","OFF","Square Minimap","Move minimap button as if around a square minimap.","ShowIcon"},
-{"CooldownCount","OFF","Cooldown Numbers","Display time remaining on cooldowns ontop of the button."},
-{"TooltipFollow","OFF","At Mouse","Display all tooltips near the mouse.","ShowTooltips"},
-{"KeepOpen","OFF","Keep Menu Open","Keep menu open at all times."},
-{"KeepDocked","ON","Keep Menu Docked","Keep menu docked at all times."},
-{"Notify","OFF","Notify When Ready","Sends an overhead notification when a trinket's cooldown is complete."},
-{"DisableToggle","OFF","Disable Toggle","Disables the minimap button's ability to toggle the trinket frame.","ShowIcon"},
-{"NotifyChatAlso","OFF","Notify Chat Also","Sends notifications through chat also."},
-{"Locked","OFF","Lock Windows","Prevents the windows from being moved, resized or rotated."},
-{"ShowTooltips","ON","Show Tooltips","Shows tooltips."},
-{"NotifyThirty","ON","Notify At 30 sec","Sends an overhead notification when a trinket has 30 seconds left on cooldown."},
-{"MenuOnShift","OFF","Menu On Shift","Check this to prevent the menu appearing unless Shift is held."},
-{"TinyTooltips","OFF","Tiny Tooltips","Shrink trinket tooltips to only their name, charges and cooldown.","ShowTooltips"},
-{"SetColumns","OFF","Set Menu Columns","Define how many trinkets before the menu will wrap to the next row.\n\nUncheck to let TrinketMenu choose how to wrap the menu."},
-{"LargeCooldown","ON","Large Numbers","Display the cooldown time in a larger font.","CooldownCount"},
-{"ShowHotKeys","ON","Show Key Bindings","Display the key bindings over the equipped trinkets."},
-{"StopOnSwap","OFF","Stop Queue On Swap","Swapping a passive trinket stops an auto queue.  Check this to also stop the auto queue when a clickable trinket is manually swapped in via TrinketMenu.  This will have the most use to those with frequent trinkets marked Priority."},
-{"HideOnLoad","OFF","Close On Profile Load","Check this to dismiss this window when you load a profile."}
+{"ShowIcon","ON",L["Opt_ShowIcon"],L["Opt_ShowIcon_Desc"]},
+{"SquareMinimap","OFF",L["Opt_SquareMinimap"],L["Opt_SquareMinimap_Desc"],"ShowIcon"},
+{"CooldownCount","OFF",L["Opt_CooldownCount"],L["Opt_CooldownCount_Desc"]},
+{"TooltipFollow","OFF",L["Opt_TooltipFollow"],L["Opt_TooltipFollow_Desc"],"ShowTooltips"},
+{"KeepOpen","OFF",L["Opt_KeepOpen"],L["Opt_KeepOpen_Desc"]},
+{"KeepDocked","ON",L["Opt_KeepDocked"],L["Opt_KeepDocked_Desc"]},
+{"Notify","OFF",L["Opt_Notify"],L["Opt_Notify_Desc"]},
+{"DisableToggle","OFF",L["Opt_DisableToggle"],L["Opt_DisableToggle_Desc"],"ShowIcon"},
+{"NotifyChatAlso","OFF",L["Opt_NotifyChatAlso"],L["Opt_NotifyChatAlso_Desc"]},
+{"Locked","OFF",L["Opt_Locked"],L["Opt_Locked_Desc"]},
+{"ShowTooltips","ON",L["Opt_ShowTooltips"],L["Opt_ShowTooltips_Desc"]},
+{"NotifyThirty","ON",L["Opt_NotifyThirty"],L["Opt_NotifyThirty_Desc"]},
+{"MenuOnShift","OFF",L["Opt_MenuOnShift"],L["Opt_MenuOnShift_Desc"]},
+{"TinyTooltips","OFF",L["Opt_TinyTooltips"],L["Opt_TinyTooltips_Desc"],"ShowTooltips"},
+{"SetColumns","OFF",L["Opt_SetColumns"],L["Opt_SetColumns_Desc"]},
+{"LargeCooldown","ON",L["Opt_LargeCooldown"],L["Opt_LargeCooldown_Desc"],"CooldownCount"},
+{"ShowHotKeys","ON",L["Opt_ShowHotKeys"],L["Opt_ShowHotKeys_Desc"]},
+{"StopOnSwap","OFF",L["Opt_StopOnSwap"],L["Opt_StopOnSwap_Desc"]},
+{"HideOnLoad","OFF",L["Opt_HideOnLoad"],L["Opt_HideOnLoad_Desc"]}
 }
 
 -- table.insert(TrinketMenu.CheckOptInfo,)
 
 TrinketMenu.TooltipInfo = {
-{"TrinketMenu_LockButton","Lock Windows","Prevents the windows from being moved, resized or rotated."},
-{"TrinketMenu_Trinket0Check","Top Trinket Auto Queue","Check this to enable auto queue for this trinket slot.  You can also Alt+Click the trinket slot to toggle Auto Queue."},
-{"TrinketMenu_Trinket1Check","Bottom Trinket Auto Queue","Check this to enable auto queue for this trinket slot.  You can also Alt+Click the trinket slot to toggle Auto Queue."},
-{"TrinketMenu_SortPriority","High Priority","When checked, this trinket will be swapped in as soon as possible, whether the equipped trinket is on cooldown or not.\n\nWhen unchecked, this trinket will not equip over one already worn that's not on cooldown."},
-{"TrinketMenu_SortDelay","Swap Delay","This is the time (in seconds) before a trinket will be swapped out.  ie, for Earthstrike you want 20 seconds to get the full 20 second effect of the buff."},
-{"TrinketMenu_SortKeepEquipped","Pause Queue","Check this to suspend the auto queue while this trinket is equipped. ie, for Carrot on a Stick if you have a mod to auto-equip it to a slot with Auto Queue active."},
-{"TrinketMenu_Profiles","Profiles","Here you can load or save auto queue profiles."},
-{"TrinketMenu_Delete","Delete","Remove this trinket from the list.  Trinkets further down the list don't affect performance at all.  This option is merely to keep the list managable. Note: Trinkets in your bags will return to end of the list."},
-{"TrinketMenu_ProfilesDelete","Delete Profile","Remove this profile."},
-{"TrinketMenu_ProfilesLoad","Load Profile","Load a queue order for the selected trinket slot.  You can double-click a profile to load it also."},
-{"TrinketMenu_ProfilesSave","Save Profile","Save the queue order from the selected trinket slot.  Either trinket slot can use saved profiles."},
-{"TrinketMenu_ProfileName","Profile Name","Enter a name to call the profile.  When saved, you can load this profile to either trinket slot."},
+{"TrinketMenu_LockButton",L["TT_LockButton"],L["TT_LockButton_Desc"]},
+{"TrinketMenu_Trinket0Check",L["TT_Trinket0Check"],L["TT_Trinket0Check_Desc"]},
+{"TrinketMenu_Trinket1Check",L["TT_Trinket1Check"],L["TT_Trinket1Check_Desc"]},
+{"TrinketMenu_SortPriority",L["TT_SortPriority"],L["TT_SortPriority_Desc"]},
+{"TrinketMenu_SortDelay",L["TT_SortDelay"],L["TT_SortDelay_Desc"]},
+{"TrinketMenu_SortKeepEquipped",L["TT_SortKeepEquipped"],L["TT_SortKeepEquipped_Desc"]},
+{"TrinketMenu_Profiles",L["TT_Profiles"],L["TT_Profiles_Desc"]},
+{"TrinketMenu_Delete",L["TT_Delete"],L["TT_Delete_Desc"]},
+{"TrinketMenu_ProfilesDelete",L["TT_ProfilesDelete"],L["TT_ProfilesDelete_Desc"]},
+{"TrinketMenu_ProfilesLoad",L["TT_ProfilesLoad"],L["TT_ProfilesLoad_Desc"]},
+{"TrinketMenu_ProfilesSave",L["TT_ProfilesSave"],L["TT_ProfilesSave_Desc"]},
+{"TrinketMenu_ProfileName",L["TT_ProfileName"],L["TT_ProfileName_Desc"]},
 }
 
 function TrinketMenu.InitOptions()
@@ -53,6 +55,7 @@ function TrinketMenu.InitOptions()
 	TrinketMenu.Tab_OnClick(1)
 	table.insert(UISpecialFrames,"TrinketMenu_OptFrame")
 	TrinketMenu_Title:SetText("TrinketMenu "..TrinketMenu_Version)
+	TrinketMenu_Tab1:SetText(L["TabOptions"])
 
 	TrinketMenu_OptFrame:SetBackdropBorderColor(.3,.3,.3,1)
 	TrinketMenu_SubOptFrame:SetBackdropBorderColor(.3,.3,.3,1)
@@ -68,6 +71,7 @@ function TrinketMenu.InitOptions()
 		TrinketMenu_SubOptFrame:SetPoint("TOPLEFT",TrinketMenu_OptFrame,"TOPLEFT",8,-24)
 	end
 	TrinketMenu_OptColumnsSlider:SetValue(TrinketMenuOptions.Columns)
+	TrinketMenu_OptColumnsSliderText:SetText(string.format(L["TrinketsCount"],TrinketMenuOptions.Columns))
 	TrinketMenu.ReflectLock()
 	TrinketMenu.ReflectCooldownFont()
 	TrinketMenu.ReflectKeyBindings()
@@ -155,7 +159,7 @@ end
 function TrinketMenu.OptColumnsSlider_OnValueChanged()
 	if TrinketMenuOptions then
 		TrinketMenuOptions.Columns = this:GetValue()
-		TrinketMenu_OptColumnsSliderText:SetText(TrinketMenuOptions.Columns.." trinkets")
+		TrinketMenu_OptColumnsSliderText:SetText(string.format(L["TrinketsCount"],TrinketMenuOptions.Columns))
 		if TrinketMenu_MenuFrame:IsVisible() then
 			TrinketMenu.BuildMenu()
 		end

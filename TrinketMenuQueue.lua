@@ -1,5 +1,7 @@
 --[[ TrinketMenuQueue : auto queue system ]]
 
+local L = TrinketMenu.L
+
 TrinketMenu.PausedQueue = {} -- 0 or 1 whether queue is paused
 
 function TrinketMenu.QueueInit()
@@ -13,11 +15,20 @@ function TrinketMenu.QueueInit()
 	TrinketMenu_SubQueueFrame:SetBackdropBorderColor(.3,.3,.3,1)
 	TrinketMenu_ProfilesFrame:SetBackdropBorderColor(.3,.3,.3,1)
 	TrinketMenu_ProfilesListFrame:SetBackdropBorderColor(.3,.3,.3,1)
-	TrinketMenu_SortPriorityText:SetText("Priority")
+	TrinketMenu_SortPriorityText:SetText(L["Priority"])
 	TrinketMenu_SortPriorityText:SetTextColor(.95,.95,.95)
-	TrinketMenu_SortKeepEquippedText:SetText("Pause Queue")
+	TrinketMenu_SortKeepEquippedText:SetText(L["PauseQueue"])
 	TrinketMenu_SortKeepEquippedText:SetTextColor(.95,.95,.95)
 	TrinketMenu_SortListFrame:SetBackdropBorderColor(.3,.3,.3,1)
+	TrinketMenu_Tab2:SetText(L["TabBottom"])
+	TrinketMenu_Tab3:SetText(L["TabTop"])
+	TrinketMenu_ProfilesDelete:SetText(L["BtnDelete"])
+	TrinketMenu_ProfilesLoad:SetText(L["BtnLoad"])
+	TrinketMenu_ProfilesSave:SetText(L["BtnSave"])
+	TrinketMenu_ProfilesCancel:SetText(L["BtnCancel"])
+	TrinketMenu_SortDelayLabel:SetText(L["LblDelay"])
+	TrinketMenu_SortDelaySecLabel:SetText(L["LblSec"])
+	TrinketMenu_ProfileNameLabel:SetText(L["LblProfile"])
 	TrinketMenu.ReflectQueueEnabled()
 	TrinketMenu.UpdateCombatQueue()
 	TrinketMenu.BagsNeedUpdating = {}
@@ -54,7 +65,7 @@ end
 
 function TrinketMenu.GetNameByID(id)
 	if id==0 then
-		return "-- stop queue here --","Interface\\Buttons\\UI-GroupLoot-Pass-Up",1
+		return L["StopQueueHere"],"Interface\\Buttons\\UI-GroupLoot-Pass-Up",1
 	else
 		local name,_,quality,_,_,_,_,_,texture = GetItemInfo(id or "")
 		return name,texture,quality
@@ -153,7 +164,7 @@ function TrinketMenu.SortTooltip()
 		GameTooltip:SetHyperlink(itemLink)
 		GameTooltip:Show()
 	else
-		TrinketMenu.OnTooltip("Stop Queue Here","Move this to mark the lowest trinket to auto queue.  Sometimes you may want a passive trinket with a click effect to be the end (Burst of Knowledge, Second Wind, etc).")
+		TrinketMenu.OnTooltip(L["StopQueueTitle"],L["StopQueueDesc"])
 	end
 end
 
@@ -401,11 +412,11 @@ end
 function TrinketMenu.SetQueue(which,...)
 	local errorstub = "|cFFBBBBBBTrinketMenu:|cFFFFFFFF "
 	if not which or not tonumber(which) or which<0 or which>1 then
-		DEFAULT_CHAT_FRAME:AddMessage(errorstub.."First parameter must be 0 for top trinket or 1 for bottom.")
+		DEFAULT_CHAT_FRAME:AddMessage(errorstub..L["ErrFirstParam"])
 		return
 	end
 	if table.getn(arg)<1 then
-		DEFAULT_CHAT_FRAME:AddMessage(errorstub.."Second parameter is either ON, OFF, PAUSE, RESUME or the beginning of a list of trinkets in a sort order.")
+		DEFAULT_CHAT_FRAME:AddMessage(errorstub..L["ErrSecondParam"])
 		return
 	end
 	if TrinketMenu_OptFrame:IsVisible() then
@@ -437,13 +448,13 @@ function TrinketMenu.SetQueue(which,...)
 				elseif bag then
 					table.insert(TrinketMenuQueue.Sort[which],TrinketMenu.GetID(bag,slot))
 				else
-					DEFAULT_CHAT_FRAME:AddMessage(errorstub.."Trinket or profile \""..arg[i].."\" not found.")
+					DEFAULT_CHAT_FRAME:AddMessage(errorstub..string.format(L["ErrTrinketNotFound"],arg[i]))
 				end
 			end
 			table.insert(TrinketMenuQueue.Sort[which],0)
 		end
 	else
-		DEFAULT_CHAT_FRAME:AddMessage(errorstub.." Expected ON, OFF, PAUSE, RESUME or SORT+list")
+		DEFAULT_CHAT_FRAME:AddMessage(errorstub..L["ErrExpectedAction"])
 	end
 
 	TrinketMenu.ReflectQueueEnabled()
@@ -454,7 +465,7 @@ end
 -- returns 1 or nil if queue is enabled, and a table containing an ordered list of the trinkets
 function TrinketMenu.GetQueue(which)
 	if not which or not tonumber(which) or which<0 or which>1 then
-		DEFAULT_CHAT_FRAME:AddMessage("|cFFBBBBBBTrinketMenu.GetQueue:|cFFFFFFFF Parameter must be 0 for top trinket or 1 for bottom.")
+		DEFAULT_CHAT_FRAME:AddMessage("|cFFBBBBBBTrinketMenu.GetQueue:|cFFFFFFFF "..L["ErrGetQueueParam"])
 		return
 	end
 	local trinketList,name = {}
@@ -537,7 +548,7 @@ function TrinketMenu.ProfileScrollFrameUpdate()
 	end
 
 	if table.getn(list)==0 then
-		TrinketMenu_Profile1Name:SetText("No profiles saved yet.")
+		TrinketMenu_Profile1Name:SetText(L["NoProfiles"])
 		TrinketMenu_Profile1:Show()
 		TrinketMenu_Profile1:UnlockHighlight()
 	end
